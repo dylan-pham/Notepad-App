@@ -1,0 +1,1 @@
+text editor created using python tkinter module, uses google drive api to upload files to your google drive
