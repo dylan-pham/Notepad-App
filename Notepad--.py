@@ -38,7 +38,7 @@ class Notepad():
             self.change_status_bar_color()
             self.file_dialog.close()
 
-    def openFile(self):
+    def open_file(self):
         self.text_box.delete('1.0', END) # clear textbox before opening new file
 
         self.file_dialog = filedialog.askopenfile(mode='r')
@@ -49,13 +49,13 @@ class Notepad():
             self.change_status_bar_color()
             self.file_dialog.close()
 
-    def uploadToDrive(self):
+    def upload_to_drive(self):
         drive.main()
         drive.upload(self.file_name, self.file_path, 'text/txt')
         self.status_bar['text'] = 'Uploaded!'
         self.change_status_bar_color()
 
-    def confirmQuit(self):
+    def confirm_quit(self):
         answer = messagebox.askyesnocancel("Are you sure you want to quit?", "Continue Editing?")
         if answer == True:
             pass
@@ -70,10 +70,10 @@ class Notepad():
         self.window_title = self.window.title('Untitled')
         self.winodw_icon = self.window.iconbitmap(r'C:\_Code_\Python\Notepad--\pencil.ico')
         self.menu_bar = Menu(self.window)
-        self.menu_bar.add_command(label="Open", command=self.openFile)
+        self.menu_bar.add_command(label="Open", command=self.open_file)
         self.menu_bar.add_command(label="Save", command=self.get_text)
-        self.menu_bar.add_command(label='Save to Drive', command=self.uploadToDrive)
-        self.menu_bar.add_command(label="Quit", command=self.confirmQuit)
+        self.menu_bar.add_command(label='Save to Drive', command=self.upload_to_drive)
+        self.menu_bar.add_command(label="Quit", command=self.confirm_quit)
         self.window.config(menu=self.menu_bar)
         self.status_bar = Label(self.window, text='', bd=1, relief=SUNKEN, anchor=W)
         self.status_bar.pack(side=BOTTOM, fill=X)
