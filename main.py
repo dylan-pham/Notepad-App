@@ -7,7 +7,7 @@ class Notepad():
     def __init__(self):
         self.window = Tk()
         self.window_title = None
-        self.winodw_icon = None
+        self.window_icon = None
         self.menu_bar = None
         self.status_bar = None
         self.text_box = None
@@ -68,7 +68,7 @@ class Notepad():
     def create_window(self):
         self.window.geometry('500x500')
         self.window_title = self.window.title('Untitled')
-        self.winodw_icon = self.window.iconbitmap(r'C:\_Code_\Python\Notepad--\pencil.ico')
+        self.window_icon = self.window.iconbitmap(r'C:\_Code_\Python\Notepad--\pencil.ico')
         self.menu_bar = Menu(self.window)
         self.menu_bar.add_command(label="Open", command=self.open_file)
         self.menu_bar.add_command(label="Save", command=self.get_text)
