@@ -6,54 +6,54 @@ import drive
 class Notepad():
     def __init__(self):
         self.window = Tk()
-        self.windowTitle = None
-        self.windowIcon = None
-        self.menuBar = None
-        self.statusBar = None
-        self.textBox = None
+        self.window_title = None
+        self.winodw_icon = None
+        self.menu_bar = None
+        self.status_bar = None
+        self.text_box = None
         self.text = None
 
-        self.filePath = None
-        self.fileName = None
-        self.fileDialog = None
+        self.file_path = None
+        self.file_name = None
+        self.file_dialog = None
 
-    def updateVariables(self):
+    def update_variables(self):
         try:
-            self.filePath = self.fileDialog.name
-            self.fileName = self.filePath.split('/')[-1]
-            self.windowTitle = self.window.windowTitle(self.fileName)
+            self.file_path = self.file_dialog.name
+            self.file_name = self.file_path.split('/')[-1]
+            self.window_title = self.window.window_title(self.file_name)
         except AttributeError:
             pass
 
-    def getText(self):
-        self.text = self.textBox.get('1.0', END)
-        self.saveText()
+    def get_text(self):
+        self.text = self.text_box.get('1.0', END)
+        self.save_text()
 
-    def saveText(self):
-        self.fileDialog = filedialog.asksaveasfile(mode='w')
-        self.updateVariables()
-        if self.fileDialog is not None:
-            self.fileDialog.write(self.text)
-            self.statusBar['text'] = 'Saved!'
-            self.changeSBColor()
-            self.fileDialog.close()
+    def save_text(self):
+        self.file_dialog = filedialog.asksaveasfile(mode='w')
+        self.update_variables()
+        if self.file_dialog is not None:
+            self.file_dialog.write(self.text)
+            self.status_bar['text'] = 'Saved!'
+            self.change_status_bar_color()
+            self.file_dialog.close()
 
     def openFile(self):
-        self.textBox.delete('1.0', END) # clear textbox before opening new file
+        self.text_box.delete('1.0', END) # clear textbox before opening new file
 
-        self.fileDialog = filedialog.askopenfile(mode='r')
-        self.updateVariables()        
-        if self.fileDialog is not None:
-            self.textBox.insert(INSERT, self.fileDialog.read())
-            self.statusBar['text'] = 'Opened!'
-            self.changeSBColor()
-            self.fileDialog.close()
+        self.file_dialog = filedialog.askopenfile(mode='r')
+        self.update_variables()        
+        if self.file_dialog is not None:
+            self.text_box.insert(INSERT, self.file_dialog.read())
+            self.status_bar['text'] = 'Opened!'
+            self.change_status_bar_color()
+            self.file_dialog.close()
 
     def uploadToDrive(self):
         drive.main()
-        drive.upload(self.fileName, self.filePath, 'text/txt')
-        self.statusBar['text'] = 'Uploaded!'
-        self.changeSBColor()
+        drive.upload(self.file_name, self.file_path, 'text/txt')
+        self.status_bar['text'] = 'Uploaded!'
+        self.change_status_bar_color()
 
     def confirmQuit(self):
         answer = messagebox.askyesnocancel("Are you sure you want to quit?", "Continue Editing?")
@@ -62,31 +62,31 @@ class Notepad():
         else:
             quit()
 
-    def changeSBColor(self):
-        self.statusBar.configure(bg='green', fg='white')
+    def change_status_bar_color(self):
+        self.status_bar.configure(bg='green', fg='white')
 
-    def createWindow(self):
+    def create_window(self):
         self.window.geometry('500x500')
-        self.windowTitle = self.window.title('Untitled')
-        self.windowIcon = self.window.iconbitmap(r'C:\_Code_\Python\Notepad--\pencil.ico')
-        self.menuBar = Menu(self.window)
-        self.menuBar.add_command(label="Open", command=self.openFile)
-        self.menuBar.add_command(label="Save", command=self.getText)
-        self.menuBar.add_command(label='Save to Drive', command=self.uploadToDrive)
-        self.menuBar.add_command(label="Quit", command=self.confirmQuit)
-        self.window.config(menu=self.menuBar)
-        self.statusBar = Label(self.window, text='', bd=1, relief=SUNKEN, anchor=W)
-        self.statusBar.pack(side=BOTTOM, fill=X)
-        self.statusBar.configure(bg='black', fg='white')
-        self.textBox = Text(self.window, height=500, width=500)
-        self.textBox.configure(bg='black')
-        self.textBox.configure(fg='white')
-        self.textBox.configure(insertbackground="white")
-        self.textBox.pack()
+        self.window_title = self.window.title('Untitled')
+        self.winodw_icon = self.window.iconbitmap(r'C:\_Code_\Python\Notepad--\pencil.ico')
+        self.menu_bar = Menu(self.window)
+        self.menu_bar.add_command(label="Open", command=self.openFile)
+        self.menu_bar.add_command(label="Save", command=self.get_text)
+        self.menu_bar.add_command(label='Save to Drive', command=self.uploadToDrive)
+        self.menu_bar.add_command(label="Quit", command=self.confirmQuit)
+        self.window.config(menu=self.menu_bar)
+        self.status_bar = Label(self.window, text='', bd=1, relief=SUNKEN, anchor=W)
+        self.status_bar.pack(side=BOTTOM, fill=X)
+        self.status_bar.configure(bg='black', fg='white')
+        self.text_box = Text(self.window, height=500, width=500)
+        self.text_box.configure(bg='black')
+        self.text_box.configure(fg='white')
+        self.text_box.configure(insertbackground="white")
+        self.text_box.pack()
         
 def main():
     notepad = Notepad()
-    notepad.createWindow()
+    notepad.create_window()
     notepad.window.mainloop()
 
 main()
