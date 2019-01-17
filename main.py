@@ -21,7 +21,7 @@ class Notepad():
         try:
             self.file_path = self.file_dialog.name
             self.file_name = self.file_path.split('/')[-1]
-            self.window_title = self.window.window_title(self.file_name)
+            self.window_title = self.window.title(self.file_name)
         except AttributeError:
             pass
 
