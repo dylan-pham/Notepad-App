@@ -112,10 +112,8 @@ class Notepad():
         self.text_box.configure(insertbackground="white")
         self.text_box.pack()
         
-def main():
+if __name__ == '__main__':
     notepad = Notepad()
     notepad.create_window()
     notepad.window.bind("<Key>", notepad.key)
     notepad.window.mainloop()
-
-main()
